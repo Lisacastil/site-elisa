@@ -58,6 +58,8 @@ body {
     height: 500px;
     display: flex;
     align-items: center;
+    background-image: url('https://s2.glbimg.com/nIqfLY3zjr8JntK_zMS9QxXFaZk=/e.glbimg.com/og/ed/f/original/2020/09/05/alfons-morales-ylswjsy7stw-unsplash.jpg');
+    background-size: cover;
    
 }
 
@@ -170,7 +172,8 @@ h4 {
     color: white;
     height: 550px;
     /* border: 3px solid yellow; */
-    background-image: url(".././assets/imgs/bg-jelly-fish-para_outras_pags.png");
+    background-image: url('https://s2.glbimg.com/nIqfLY3zjr8JntK_zMS9QxXFaZk=/e.glbimg.com/og/ed/f/original/2020/09/05/alfons-morales-ylswjsy7stw-unsplash.jpg');
+    background-size: cover;;
     background-size: cover;
 }
 
@@ -183,7 +186,7 @@ h4 {
 }
 
 .banner-login {
-    color: #E6005A;
+    color: rgb(111,22,51);
 }
 
 .banner-login .card {
@@ -216,7 +219,7 @@ button {
 
 input {
     height: 30px;
-    border: 2px solid #E6005A;
+    border: 2px solid rgb(111,22,51);
     border-radius: 10px;
 }
 
@@ -228,7 +231,7 @@ input {
     font-size: 18px;
     padding: 10px 15px;
     color: white;
-    background-color: #E6005A;
+    background-color: rgb(194, 149, 0);
     width: 120px;
     align-self: center;
 }
