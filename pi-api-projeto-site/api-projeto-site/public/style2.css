@@ -249,8 +249,20 @@ h4 {
 
 .banner-login .card {
     background-color: #E5E5E5;
-    height: 450px;
-    width: 400px;
+    height: 550px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.listaLivros {
+    background-color: whitesmoke;
+    height: 550px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-content: space-around;

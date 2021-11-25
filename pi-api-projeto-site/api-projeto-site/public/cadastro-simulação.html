@@ -13,7 +13,7 @@
 
 
     <link rel="icon" href="./assets/icon/favicon.ico">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./style2.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -52,32 +52,40 @@
     <div class="banner-login ">
         <div class="container ">
             <div class="card medio">
-                <h2>Bem vindo!</h2>
+                <h2>Registre aqui os livros que já leu!</h2>
                 <div class="formulario">
                     <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
-                        Nome:
-                        <input name="nome" type="text" placeholder=" Elisa Castilho">
+                        <button class="btn">Adicionar</button><br>
+                        Título do livro:
+                        <input name="titulo" type="text" placeholder=" As crônicas de nárnia">
                         <br>
-                        E-mail:
-                        <input name="email" type="text" placeholder=" meuemail@provedor.com">
+                        Nome do autor:
+                        <input name="autor" type="text" placeholder=" C.S. Lewis">
                         <br>
-                        Senha:
-                        <input name="senha" type="password" placeholder=" ******">
+                        Gênero do livro:
+                        <input name="genero" type="text" placeholder=" Fantasia">
                         <br>
-                        Confirmação da Senha:
-                        <input name="confirmacao-senha" type="password" placeholder=" ******">
+                        Comentário:
+                        <input name="comentario" type="text" placeholder="Se quiser adicione um comentário">
                         <br>
-                        <button class="btn">Cadastrar</button>
+                        Dê uma nota ao livro de 1 a 5:
+                        <input name="avaliação" type="text" placeholder="Insira um número de 1 a 5">  
+                        <br>                     
                     </form>
                 </div>
                 <div id="div_aguardar" class="loading-div">
                     <img src="./assets/circle-loading.gif" id="loading-gif">
                 </div>
-
+                
                 <div id="div_erros_login">
 
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="listaLivros">
+        <div id="containerLivros">
+            <h2>Seus livros cadastrados</h2>
         </div>
     </div>
 
