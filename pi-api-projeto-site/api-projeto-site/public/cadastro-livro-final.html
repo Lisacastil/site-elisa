@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Folheando</title>
+
+
+    <script src="./assets/js/funcoes.js"></script>
+
+
+    <link rel="icon" href="./assets/icon/livro.png">
+    <link rel="stylesheet" href="./style2.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--header inicio-->
+    <div class="header">
+        <div class="container">
+            <h1>Folheando</h1>
+            <ul class="navbar">
+                <li>
+                    <a href="./index.html">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="./curiosidades.html">Curiosidades</a>
+                </li>
+
+                <li>
+                    <a href="./login.html">Login</a>
+                </li>
+                <li class="agora">
+                    <a href="./cadastro.html">Cadastre-se</a>
+                </li>
+                <li>
+                    <a href="./cadastro.html">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--header fim-->
+
+    <div class="banner-login ">
+        <div class="container ">
+            <div class="card medio">
+                <h2>Registre aqui os livros que já leu!</h2>
+                <div class="formulario">
+                    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                        Título do livro:
+                        <input name="titulo" type="text" placeholder=" As crônicas de nárnia">
+                        <br>
+                        Nome do autor:
+                        <input name="autor" type="text" placeholder=" C.S. Lewis">
+                        <br>
+                        Gênero do livro:
+                        <input name="genero" type="text" placeholder=" Fantasia">
+                        <br>
+                        Comentário:
+                        <input name="comentario" type="text" placeholder="Se quiser adicione um comentário">
+                        <br>
+                        Dê uma nota ao livro de 1 a 5:
+                        <!-- abaixo criei um div para conter todos os radios juntos, fazendo os mesmos ficarem alinhados.  -->
+                        <!-- para eles ficarem agrupados e não deixar selecionar vários ao mesmo tempo, usar o mesmo name -->
+                        <div id="div_radios">
+                            <input id="avaliacao1" name="avaliacao" type="radio" value="1"> 1
+                            <input id="avaliacao2" name="avaliacao" type="radio" value="2"> 2
+                            <input id="avaliacao3" name="avaliacao" type="radio" value="3"> 3
+                            <input id="avaliacao4" name="avaliacao" type="radio" value="4"> 4
+                            <input id="avaliacao5" name="avaliacao" type="radio" value="5"> 5
+                        </div>
+                        <br>
+                        <button class="btn">Adicionar</button><br>
+                    </form>
+                </div>
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div id="div_erros_login">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="listaLivros">
+        <div id="containerLivros">
+            <h2>Seus livros cadastrados</h2>
+        </div>
+    </div>
+
+    <!--footer inicio-->
+    <div class="footer">
+        <div class="container">
+            <h4>Developed from Elisa Castilho - Feito com amor por um aluno BandTec &copy; 2021</h4>
+        </div>
+    </div>
+    <!--footer fim-->
+
+
+</body>
+
+</html>
+
+<script>
+
+    // window.onload configura uma função a ser executada imediatamente quando a página termina de carregar
+    window.onload = function() {
+        // se tiver usuario logado
+        if (sessionStorage.ID_USUARIO >= 0) {
+            // carrega a lista de livros do mesmo.
+            carregarLivros();
+        } else {
+            // Se não, redireciona para o login.
+            window.location = './login.html';
+        }        
+    }
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        // aqui preciso ajustar para pegar os campos certos deste form de livros, ao invés do form antigo de cadastro
+        var titulo = formulario.get("titulo");
+        var autor = formulario.get("autor");
+        var genero = formulario.get("genero");
+        var comentario = formulario.get("comentario");
+        var avaliacao = Number(formulario.get("avaliacao"));
+
+        // e continuar trocando os campos pelos corretos
+        // comentario estou deixando ficar em branco por enquanto, não está sendo validado
+        if (titulo == "" || autor == "" || genero == "" || isNaN(avaliacao)) {
+
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (titulo == "") {
+                console.log('titulo está em branco')
+            }
+            if (autor == "") {
+                console.log('autor está em branco')
+            }
+            if (genero == "") {
+                console.log('genero está em branco')
+            }
+            if (isNaN(avaliacao)) {
+                console.log('avaliacao inválida')
+            }
+            finalizarAguardar();
+            return false;
+        }
+
+        // removida validação de email
+
+        // removida validação de senhas
+
+        fetch("http://localhost:3333/livros/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Livro incluído com sucesso!");
+                // Criar essa função abaixo para carregar a lista de livros do usuário logado.
+                carregarLivros();
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    //criar aqui a função carregarLivros(); Esta função deve chamar a API em http://localhost:3333/livros/listar
+    function carregarLivros() {
+        // usando como base para criar essa rota http://localhost:3333/usuarios/listar/:idUsuario
+        fetch(`http://localhost:3333/livros/listar/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("deu certo");
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar carregar os livros!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    }
+
+</script>

@@ -142,7 +142,7 @@
             return false;
         }
 
-        fetch("/usuarios/cadastrar", {
+        fetch("http://localhost:3333/usuarios/cadastrar", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {

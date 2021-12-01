@@ -9,7 +9,7 @@
 
     <script src="./assets/js/funcoes.js"></script>
 
-    <link rel="icon" href="./assets/icon/favicon.ico">
+    <link rel="icon" href="./assets/icon/livro.png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -130,7 +130,8 @@
             return false;
         }
 
-        fetch("/usuarios/autenticar", {
+        // Aqui preciso adicionar o caminho completo do localhost com a porta
+        fetch("http://localhost:3333/usuarios/autenticar", {
             method: "POST",
             body: formulario
         }).then(function (resposta) {
@@ -145,10 +146,14 @@
 
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
+                    // meu campo no banco se chama id_usuario, então preciso mudar o campo que vem no json
+                    // era sessionStorage.ID_USUARIO = json.id; fica:
+                    sessionStorage.ID_USUARIO = json.id_usuario;
 
                     setTimeout(function () {
-                        window.location = "./dashboard/dashboard.html";
+                        // trocando a url da janela (window) para página inicial
+                        // antes estava dashboard/dashboard.html
+                        window.location = "./cadastro-livro-final.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
