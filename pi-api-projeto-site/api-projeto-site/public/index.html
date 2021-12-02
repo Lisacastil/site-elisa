@@ -84,19 +84,19 @@
             </div>
             <div class="boxes">
                 <div class="box">
-                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\livroscinza.gif" alt="icone dos livros">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\livrospilha.gif" alt="icone dos livros">
                     <h4>Número de Livros</h4>
                     <p id="metrica_livros"></p>
                 </div>
 
                 <div class="box">
-                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\xicaracinza.gif" alt="icone da xicara">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\avaliando.png" alt="icone da xicara">
                     <h4>Leitura de Qualidade</h4>
                     <p id="metrica_avaliacao"></p>
                 </div>
 
                 <div class="box">
-                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\leitura.gif" alt="icone da poltrona">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\leituranosofa.gif" alt="icone da poltrona">
                     <h4>Gênero Favorito</h4>
                     <p id="metrica_genero"></p>
                 </div>
@@ -132,7 +132,7 @@
                     var totalLivros = res.total;
                     var pLivros = document.getElementById('metrica_livros');
 
-                    pLivros.innerHTML = `Nossos usuários já leram ${totalLivros} livros diferentes!`;
+                    pLivros.innerHTML = `Nossos usuários já leram ${totalLivros} livros diferentes! <br>Eles não param!`;
                 })
             } else {
                 throw ("Houve um erro ao tentar carregar a métrica de totalLivros!");

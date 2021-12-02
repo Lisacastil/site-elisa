@@ -98,6 +98,7 @@ body {
 }
 
 .metricas {
+    background-color: white;
     padding: 50px 0;
 }
 
@@ -119,11 +120,23 @@ body {
     margin-bottom: 50px;
 }
 
-.social h2,
-.metricas h2 {
+.social h2 {
     display: flex;
     padding: 20px;
     background-color: white;
+    border-radius: 20px;
+    align-self: center; 
+    justify-self: center;
+    text-align: center;
+    color: #024d70;
+    margin: 0;
+    /* border: 3px solid orange; */
+}
+
+.metricas h2 {
+    display: flex;
+    padding: 20px;
+    background-color: #cecccc;
     border-radius: 20px;
     align-self: center; 
     justify-self: center;
@@ -165,7 +178,7 @@ body {
 
 .metricas .box h4 {
     font-family: 'Pacifico';
-    color: #75b3cf;
+    color: rgb(111,22,51);
     margin-top: 30px;
     font-size: 30px;
 }
