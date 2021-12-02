@@ -32,18 +32,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./curiosidades.html">Curiosidades</a>
-                </li>
-
-                <li>
                     <a href="./login.html">Login</a>
                 </li>
                 <li class="agora">
                     <a href="./cadastro.html">Cadastre-se</a>
                 </li>
-                <li>
-                    <a href="./cadastro.html">Sair</a>
-                </li>
+                
             </ul>
         </div>
     </div>
@@ -56,10 +50,13 @@
                 <div class="formulario">
                     <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
                         Nome:
-                        <input name="nome" type="text" placeholder=" Elisa Castilho">
+                        <input name="nome" type="text" placeholder=" Seu Nome Aqui">
                         <br>
                         E-mail:
                         <input name="email" type="text" placeholder=" meuemail@provedor.com">
+                        <br>
+                        Data de Nascimento:
+                        <input name="dataNascimento" type="date">
                         <br>
                         Senha:
                         <input name="senha" type="password" placeholder=" ******">
@@ -84,7 +81,7 @@
     <!--footer inicio-->
     <div class="footer">
         <div class="container">
-            <h4>Developed from Elisa Castilho - Feito com amor por um aluno BandTec &copy; 2021</h4>
+            <h4>Developed by Elisa Castilho - Feito com amor por um aluno BandTec &copy; 2021</h4>
         </div>
     </div>
     <!--footer fim-->
@@ -107,11 +104,12 @@
 
         var nome = formulario.get("nome");
         var email = formulario.get("email");
+        var dataNascimento = formulario.get("dataNascimento");
         var senha = formulario.get("senha");
         var confirmacaoSenha = formulario.get("confirmacao-senha");
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (nome == "" || email == "" || senha == "" || confirmacaoSenha == "") {
+        if (nome == "" || email == "" || dataNascimento == "" || senha == "" || confirmacaoSenha == "") {
 
             window.alert("Preencha todos os campos para prosseguir!");
             if (nome == "") {
@@ -119,6 +117,9 @@
             }
             if (email == "") {
                 console.log('email está em branco')
+            }
+            if (dataNascimento == "") {
+                console.log('data de nascimento está em branco')
             }
             if (senha == "") {
                 console.log('senha está em branco')

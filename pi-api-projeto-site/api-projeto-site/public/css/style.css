@@ -97,8 +97,13 @@ body {
     padding: 50px 0;
 }
 
+.metricas {
+    padding: 50px 0;
+}
 
-.social .container {
+
+.social .container,
+.metricas .container {
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
@@ -106,14 +111,16 @@ body {
 }
 
 /* usar este bloco para explicar margin e padding*/
-.social .titulo {
+.social .titulo,
+.metricas .titulo {
     /* border: 3px solid pink; */
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
 }
 
-.social h2 {
+.social h2,
+.metricas h2 {
     display: flex;
     padding: 20px;
     background-color: white;
@@ -126,12 +133,14 @@ body {
     /* border: 3px solid orange; */
 }
 
-.social .boxes {
+.social .boxes,
+.metricas .boxes {
     display: flex;
     /* border: 3px solid blue; */
 }
 
-.social .box {
+.social .box,
+.metricas .box {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -141,18 +150,26 @@ body {
     /* border: 3px solid yellow; */
 }
 
-.social .box img {
+.social .box img,
+.metricas .box img {
     width: 180px;
     align-self: center;
 }
 
 .social .box h4 {
-
     font-family: 'Pacifico';
     color: #024d70;
     margin-top: 30px;
     font-size: 30px;
 }
+
+.metricas .box h4 {
+    font-family: 'Pacifico';
+    color: #75b3cf;
+    margin-top: 30px;
+    font-size: 30px;
+}
+
 .bodyCuriosidade {
 
     height: 500px;

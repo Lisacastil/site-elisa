@@ -13,8 +13,7 @@
     <link rel="icon" href="./assets/icon3535/livro.png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-     href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
@@ -23,10 +22,7 @@
         <div class="container">
             <h1>Folheando</h1>
             <ul class="navbar">
-                <li class="agora"xicara>Inicio</li>
-                <li>
-                    <a href="./curiosidades.html">Curiosidades</a>
-                </li>
+                <li class="agora" xicara>Inicio</li>
                 <!-- <li> </li> -->
                 <li>
                     <a href="./cadastro.html">Cadastre-se</a>
@@ -34,7 +30,7 @@
                 <li>
                     <a href="./login.html">Login</a>
                 </li>
-                
+
             </ul>
         </div>
     </div>
@@ -46,7 +42,7 @@
             </p>
         </div>
     </div>
-    
+
     <div class="social">
         <div class="container">
 
@@ -57,26 +53,58 @@
                 <div class="box">
                     <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\livroscinza.gif" alt="icone dos livros">
                     <h4>Livros</h4>
-                    <p>Escolha um, ou vários. Deixe-os ao alcance da mão. Não tenha pressa, você pode já ter lido eles ou não...</p>
+                    <p>Escolha um, ou vários. Deixe-os ao alcance da mão. Não tenha pressa, você pode já ter lido eles
+                        ou não...</p>
                 </div>
 
                 <div class="box">
                     <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\xicaracinza.gif" alt="icone da xicara">
                     <h4>Uma bebida</h4>
-                    <p>Com os livros separados, prepare sua bebida preferida. A minha é um café mas dependendo do dia pode ser um chá</p>
+                    <p>Com os livros separados, prepare sua bebida preferida. A minha é um café mas dependendo do dia
+                        pode ser um chá</p>
                 </div>
 
                 <div class="box">
                     <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\leitura.gif" alt="icone da poltrona">
                     <h4>Cantinho</h4>
-                    <p>Encontre seu canto preferido, sentada ou deitada. Se acomode da forma que achar mais confortável. Aproveite o momento...</p>
+                    <p>Encontre seu canto preferido, sentada ou deitada. Se acomode da forma que achar mais confortável.
+                        Aproveite o momento...</p>
                 </div>
             </div>
         </div>
 
 
     </div>
-    
+
+    <div class="metricas">
+        <div class="container">
+
+            <div class="titulo">
+                <h2>Veja alguns dados sobre os nossos usuários e suas leituras:</h2>
+            </div>
+            <div class="boxes">
+                <div class="box">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\livroscinza.gif" alt="icone dos livros">
+                    <h4>Número de Livros</h4>
+                    <p id="metrica_livros"></p>
+                </div>
+
+                <div class="box">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\xicaracinza.gif" alt="icone da xicara">
+                    <h4>Leitura de Qualidade</h4>
+                    <p id="metrica_avaliacao"></p>
+                </div>
+
+                <div class="box">
+                    <img src="C:\Users\Elisa\Desktop\Site Elisa\imagens\leitura.gif" alt="icone da poltrona">
+                    <h4>Gênero Favorito</h4>
+                    <p id="metrica_genero"></p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 
     <div class="footer">
         <div class="container">
@@ -86,3 +114,73 @@
 </body>
 
 </html>
+
+<script>
+
+    window.onload = function() {
+        carregarMetricas();
+    }
+
+    function carregarMetricas() {
+        fetch(`http://localhost:3333/metricas/totalLivrosUnicos`, {
+            method: "GET"
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then((res) => {
+                    var totalLivros = res.total;
+                    var pLivros = document.getElementById('metrica_livros');
+
+                    pLivros.innerHTML = `Nossos usuários já leram ${totalLivros} livros diferentes!`;
+                })
+            } else {
+                throw ("Houve um erro ao tentar carregar a métrica de totalLivros!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        fetch(`http://localhost:3333/metricas/mediaAvaliacao`, {
+            method: "GET"
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then((res) => {
+                    var mediaAvaliacao = Number(res.media);
+                    var pAvaliacao = document.getElementById('metrica_avaliacao');
+
+                    pAvaliacao.innerHTML = `As leituras dos nossos usuários foram avaliadas com a nota média (de 1 a 5): ${mediaAvaliacao.toFixed(2)}`;
+                })
+            } else {
+                throw ("Houve um erro ao tentar carregar a métrica de totalLivros!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        fetch(`http://localhost:3333/metricas/generoMaisLido`, {
+            method: "GET"
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then((genero) => {
+                    var generoMaisLido = genero;
+                    var pGenero = document.getElementById('metrica_genero');
+
+                    console.log('Genero response: ', genero, ' var: ', generoMaisLido);
+
+                    pGenero.innerHTML = `O gênero no qual nossos leitores preferem se aprofundar é: ${generoMaisLido}`;
+                })
+            } else {
+                throw ("Houve um erro ao tentar carregar a métrica de totalLivros!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+</script>

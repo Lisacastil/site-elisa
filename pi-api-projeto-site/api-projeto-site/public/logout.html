@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre os livros que já leu!</title>
+    <script src="./assets/js/funcoes.js"></script>
+
+    <link rel="icon" href="./assets/icon3535/livro.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Folheando</h1>
+            <ul class="navbar">
+                <li class="agora" xicara>Inicio</li>
+               
+                <!-- <li> </li> -->
+                <li>
+                    <a href="./cadastro.html">Cadastre-se</a>
+                </li>
+                <li>
+                    <a href="./login.html">Login</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <h2>Realizando logout de usuário!</h2>
+
+</body>
+
+</html>
+
+<script>
+    window.onload = function() {
+        
+        // Ao carregar a página, "desloga"(remove os dados do usuario das variáveis de sessão)
+        // e redireciona para a página inicial
+        sessionStorage.ID_USUARIO = -1;
+        sessionStorage.NOME_USUARIO = '';
+        sessionStorage.EMAIL_USUARIO = '';
+        window.location = './index.html';
+    }
+</script>

@@ -3,11 +3,7 @@ var router = express.Router();
 
 var livroController = require("../controllers/livroController");
 
-router.get("/", function(req, res) {
-    livroController.testar(req, res);
-});
-
-router.get("/listar", function(req, res) {
+router.get("/listar/:idUsuario", function(req, res) {
     livroController.listar(req, res);
 });
 

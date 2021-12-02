@@ -14,6 +14,7 @@
 
     <link rel="icon" href="./assets/icon/livro.png">
     <link rel="stylesheet" href="./style2.css">
+    <link rel="stylesheet" href="./css/table.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -32,17 +33,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./curiosidades.html">Curiosidades</a>
-                </li>
-
-                <li>
-                    <a href="./login.html">Login</a>
-                </li>
-                <li class="agora">
-                    <a href="./cadastro.html">Cadastre-se</a>
+                    <h4 id="nome_usuario"></h4>
                 </li>
                 <li>
-                    <a href="./cadastro.html">Sair</a>
+                    <a href="./logout.html">Sair</a>
                 </li>
             </ul>
         </div>
@@ -55,17 +49,18 @@
                 <h2>Registre aqui os livros que já leu!</h2>
                 <div class="formulario">
                     <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                        <input type="hidden" name="idUsuario" id="input_usuario">
                         Título do livro:
-                        <input name="titulo" type="text" placeholder=" As crônicas de nárnia">
+                        <input name="titulo" type="text">
                         <br>
                         Nome do autor:
-                        <input name="autor" type="text" placeholder=" C.S. Lewis">
+                        <input name="autor" type="text">
                         <br>
                         Gênero do livro:
-                        <input name="genero" type="text" placeholder=" Fantasia">
+                        <input name="genero" type="text">
                         <br>
                         Comentário:
-                        <input name="comentario" type="text" placeholder="Se quiser adicione um comentário">
+                        <input name="comentario" type="text">
                         <br>
                         Dê uma nota ao livro de 1 a 5:
                         <!-- abaixo criei um div para conter todos os radios juntos, fazendo os mesmos ficarem alinhados.  -->
@@ -91,16 +86,19 @@
             </div>
         </div>
     </div>
-    <div class="listaLivros">
-        <div id="containerLivros">
+
+    <div class="container">
+        <div class="listaLivros">
             <h2>Seus livros cadastrados</h2>
+            <div id="containerLivros">
+            </div>
         </div>
     </div>
 
     <!--footer inicio-->
     <div class="footer">
         <div class="container">
-            <h4>Developed from Elisa Castilho - Feito com amor por um aluno BandTec &copy; 2021</h4>
+            <h4>Developed by Elisa Castilho - Feito com amor por um aluno BandTec &copy; 2021</h4>
         </div>
     </div>
     <!--footer fim-->
@@ -113,15 +111,19 @@
 <script>
 
     // window.onload configura uma função a ser executada imediatamente quando a página termina de carregar
-    window.onload = function() {
+    window.onload = function () {
         // se tiver usuario logado
         if (sessionStorage.ID_USUARIO >= 0) {
+            // adiciona as boas vindas no header
+            document.getElementById("nome_usuario").innerHTML = `Olá, ${sessionStorage.NOME_USUARIO}`;
             // carrega a lista de livros do mesmo.
             carregarLivros();
+            // define o input de idUsuario no form para o id do usuário logado
+            document.getElementById('input_usuario').value = sessionStorage.ID_USUARIO;
         } else {
             // Se não, redireciona para o login.
             window.location = './login.html';
-        }        
+        }
     }
 
     function limparFormulario() {
@@ -133,15 +135,13 @@
 
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
-        // aqui preciso ajustar para pegar os campos certos deste form de livros, ao invés do form antigo de cadastro
+        var idUsuario = formulario.get("idUsuario");
         var titulo = formulario.get("titulo");
         var autor = formulario.get("autor");
         var genero = formulario.get("genero");
         var comentario = formulario.get("comentario");
         var avaliacao = Number(formulario.get("avaliacao"));
 
-        // e continuar trocando os campos pelos corretos
-        // comentario estou deixando ficar em branco por enquanto, não está sendo validado
         if (titulo == "" || autor == "" || genero == "" || isNaN(avaliacao)) {
 
             window.alert("Preencha todos os campos para prosseguir!");
@@ -160,10 +160,6 @@
             finalizarAguardar();
             return false;
         }
-
-        // removida validação de email
-
-        // removida validação de senhas
 
         fetch("http://localhost:3333/livros/cadastrar", {
             method: "POST",
@@ -189,9 +185,7 @@
         return false;
     }
 
-    //criar aqui a função carregarLivros(); Esta função deve chamar a API em http://localhost:3333/livros/listar
     function carregarLivros() {
-        // usando como base para criar essa rota http://localhost:3333/usuarios/listar/:idUsuario
         fetch(`http://localhost:3333/livros/listar/${sessionStorage.ID_USUARIO}`, {
             method: "GET"
         }).then(function (resposta) {
@@ -200,13 +194,53 @@
 
             if (resposta.ok) {
                 console.log("deu certo");
-                finalizarAguardar();
+
+                resposta.json().then((arr) => {
+                    var arrayLivros = arr;
+
+                    var divLivros = document.getElementById('containerLivros');
+
+                    if (arrayLivros.length > 0) {
+                        var htmlListaLivros = '';
+
+                        htmlListaLivros = `            
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="titulo">Título</th>
+                                        <th class="autor">Autor</th>
+                                        <th class="genero">Gênero</th>
+                                        <th class="comentario">Comentário</th>
+                                        <th class="nota">Avaliação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+                        for (let i = 0; i < arrayLivros.length; i++) {
+                            htmlListaLivros += `
+                                <tr>
+                                    <td class="titulo">${arrayLivros[i].titulo}</td>
+                                    <td class="autor">${arrayLivros[i].autor}</td>
+                                    <td class="genero">${arrayLivros[i].genero}</td>
+                                    <td class="comentario">${arrayLivros[i].comentario}</td>
+                                    <td class="nota">${arrayLivros[i].avaliacao}</td>
+                                </tr>
+                            `;
+                        }
+
+                        htmlListaLivros += '</tbody></table>';
+                    } else {
+                        htmlListaLivros = '';
+                    }
+
+                    divLivros.innerHTML = htmlListaLivros;
+                })
             } else {
                 throw ("Houve um erro ao tentar carregar os livros!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
     }
 
